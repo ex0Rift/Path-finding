@@ -5,5 +5,6 @@ Player::Player(float x ,float y){
 }
 
 void Player::Move(float amountX, float amountY){
-    
+    position.x += amountX;
+    position.y += amountY;
 }

@@ -4,6 +4,7 @@ echo "Compiling..."
 g++ \
     src/main.cpp \
     src/player.cpp \
+    src/bot.cpp \
     -I include \
     -o build \
     -lraylib -lm -ldl -lGL -pthread

@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "player.h"
+#include "bot.h"
 
 Vector2 world_size = {300.0f, 300.0f};
 
@@ -8,6 +9,8 @@ int main(){
     SetTargetFPS(60);
 
     Player player(world_size.x/2,world_size.y/2);
+
+    Bot bot(200,200);
 
     Camera2D camera = {0};
     camera.target = {player.position.x, player.position.y};
@@ -29,6 +32,9 @@ int main(){
         //draw to the WORLD NOT SCREEN
         BeginMode2D(camera);
 
+        //bot behaviour
+        bot.SimpleFollow(player.position.x,player.position.y,1.0f);
+
         //draw teh world border
         DrawRectangleLines(0,0,world_size.x,world_size.y,RED);
 
@@ -42,6 +48,8 @@ int main(){
 
 
         DrawRectangle(player.position.x, player.position.y,10,10,BLUE);
+
+        bot.Draw();
 
         EndMode2D();
         //UI GETS PUT HERE

@@ -2,6 +2,8 @@
 
 Player::Player(float x ,float y){
     position = {x,y};
+    speed = 3;
+    size = 10;
 }
 
 void Player::Move(float amountX, float amountY){

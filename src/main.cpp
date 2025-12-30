@@ -2,15 +2,12 @@
 #include "raylib.h"
 #include "player.h"
 #include "bot.h"
-
-Vector2 world_size = {300.0f, 300.0f};
+#include "global.h"
 
 std::vector<std::vector<int>> invalid_sectors  = {
     {1,1},
     {2,3}
 };
-
-int sector_size = 50;
 
 int main(){
     InitWindow(800,600, "Path finding");

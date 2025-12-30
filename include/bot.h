@@ -3,6 +3,10 @@
 #include <vector>
 
 class Bot{
+private:
+    Vector2 DetectSector();
+
+    Vector2 world_tiles_quantity;
 public:
     Vector2 position;
 

@@ -6,7 +6,7 @@ An enviroment if anything using Raylib to boost my skill in writing bot path fin
 
 Currently there isnt much (just started it) and is only a simple camera and world based program
 
-## Path fibdibg algorithms
+## Path finding algorithms
 
 ### simple follow
 

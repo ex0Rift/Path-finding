@@ -4,9 +4,11 @@
 #include <vector>
 #include <cstdio>
 
-Bot::Bot(float x, float y, Vector2 world_dim_tiles , std::vector<std::vector<int>> invalid_sectors){
+Bot::Bot(float x, float y, Vector2 world_dim_tiles , std::vector<std::vector<int>> invalid_sectors_t){
     position = {x,y};
+    radius = 3.0f;
     world_tiles_quantity = world_dim_tiles;
+    invalid_sectors = invalid_sectors_t;
 
     tile_map.resize(world_dim_tiles.y, std::vector<int>(world_dim_tiles.x, 0));
 
@@ -23,8 +25,21 @@ Vector2 Bot::DetectSector(){
     return current_tile;
 }
 
+bool Bot::CheckIfSectorIsInvalid(){
+    Vector2 current_tile = DetectSector();
+    for (const auto& i : invalid_sectors){
+        if (
+            static_cast<int>(current_tile.x) == i[0] &&
+            static_cast<int>(current_tile.y) == i[1]
+        ){
+            return true;
+        }
+    }
+    return false;
+}
+
 void Bot::Draw(){
-    DrawRectangle(position.x,position.y,10,10,GREEN);
+    DrawCircle(position.x,position.y,radius,GREEN);
 }
 
 void Bot::SimpleFollow(float goalX, float goalY, float speed){
@@ -38,5 +53,32 @@ void Bot::SimpleFollow(float goalX, float goalY, float speed){
     }else {
         position.y -= speed;
     }
+}
+
+void Bot::FollowAvoidBadSectors(float goalX, float goalY, float speed){
+    Vector2 position_old = position;
+
+    if (goalX > position.x){
+        position.x += speed;
+    }else if (goalX < position.x) {
+        position.x -= speed;
+    }
+    bool resultX = CheckIfSectorIsInvalid();
+    if (resultX) position.x = position_old.x;
+
+    if (goalY > position.y){
+        position.y += speed;
+    }else  if (goalY < position.y){
+        position.y -= speed;
+    }
+    bool resultY = CheckIfSectorIsInvalid();
+    if (resultY) {
+        position.y = position_old.y;
+        if (position.x == position_old.x){
+            position.x += speed*4;
+        }
+    }
+
+    
 
 }

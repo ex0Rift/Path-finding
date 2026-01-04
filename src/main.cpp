@@ -32,7 +32,7 @@ int main(){
         camera.target = {player.position.x, player.position.y};
 
         //bot behaviour
-        bot.SimpleFollow(player.position.x,player.position.y,1.0f);
+        bot.FollowAvoidBadSectors(player.position.x,player.position.y,1.0f);
 
         //start drawing to the screen
         BeginDrawing();

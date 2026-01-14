@@ -23,6 +23,7 @@ int main(){
     camera.zoom = 2.0f;
 
     while (!WindowShouldClose()){
+        player.prevposition = player.position;
 
         if (IsKeyDown(KEY_A) && player.position.x > 0) player.Move(-player.speed,0);
         if (IsKeyDown(KEY_D) && player.position.x+10 < world_size.x) player.Move(player.speed,0);
@@ -32,7 +33,7 @@ int main(){
         camera.target = {player.position.x, player.position.y};
 
         //bot behaviour
-        bot.FollowAvoidBadSectors(player.position.x,player.position.y,1.0f);
+        bot.Mimic(player.prevposition.x-player.position.x,player.prevposition.y-player.position.y);
 
         //start drawing to the screen
         BeginDrawing();

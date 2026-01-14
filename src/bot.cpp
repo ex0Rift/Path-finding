@@ -55,6 +55,10 @@ void Bot::SimpleFollow(float goalX, float goalY, float speed){
     }
 }
 
+void Bot::Mimic(float movmentX, float movmentY){
+    position = {position.x-movmentX, position.y-movmentY};
+}
+
 void Bot::FollowAvoidBadSectors(float goalX, float goalY, float speed){
     Vector2 position_old = position;
 
@@ -73,9 +77,12 @@ void Bot::FollowAvoidBadSectors(float goalX, float goalY, float speed){
     }
     bool resultY = CheckIfSectorIsInvalid();
     if (resultY) {
-        position.y = position_old.y;
         if (position.x == position_old.x){
-            position.x += speed*4;
+            position.x += speed;
+            bool resultC = CheckIfSectorIsInvalid();
+
+        }else{
+            position.y = position_old.y;
         }
     }
 

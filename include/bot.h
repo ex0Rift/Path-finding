@@ -20,5 +20,6 @@ public:
 
     void Draw();
     void SimpleFollow(float goalX, float goalY, float speed);
+    void Mimic(float movmentX, float movmentY);
     void FollowAvoidBadSectors(float goalX, float goalY, float speed);
 };

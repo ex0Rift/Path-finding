@@ -17,16 +17,16 @@ Bot::Bot(float x, float y, Vector2 world_dim_tiles , std::vector<std::vector<int
     }   
 }
 
-Vector2 Bot::DetectSector(){
+Vector2 Bot::DetectSector(float x, float y){
     Vector2 current_tile = {
-        position.x / sector_size,
-        position.y / sector_size
+        x / sector_size,
+        y / sector_size
     };
     return current_tile;
 }
 
-bool Bot::CheckIfSectorIsInvalid(){
-    Vector2 current_tile = DetectSector();
+bool Bot::CheckIfSectorIsInvalid(float x, float y){
+    Vector2 current_tile = DetectSector(x,y);
     for (const auto& i : invalid_sectors){
         if (
             static_cast<int>(current_tile.x) == i[0] &&
@@ -71,7 +71,7 @@ void Bot::FollowAvoidBadSectors(float goalX, float goalY, float speed){
     }else if (goalX < position.x) {
         position.x -= speed;
     }
-    bool resultX = CheckIfSectorIsInvalid();
+    bool resultX = CheckIfSectorIsInvalid(position.x,position.y);
     if (resultX) position.x = position_old.x;
 
     if (goalY > position.y){
@@ -79,17 +79,14 @@ void Bot::FollowAvoidBadSectors(float goalX, float goalY, float speed){
     }else  if (goalY < position.y){
         position.y -= speed;
     }
-    bool resultY = CheckIfSectorIsInvalid();
+    bool resultY = CheckIfSectorIsInvalid(position.x,position.y);
     if (resultY) {
         if (position.x == position_old.x){
             position.x += speed;
-            bool resultC = CheckIfSectorIsInvalid();
+            bool resultC = CheckIfSectorIsInvalid(position.x,position.y);
 
         }else{
             position.y = position_old.y;
         }
     }
-
-    
-
 }

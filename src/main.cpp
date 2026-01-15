@@ -22,7 +22,7 @@ int main(){
 
     Bot bot(200,200, {world_size.x/sector_size, world_size.y/sector_size}, invalid_sectors);
 
-    Camera2D camera = {0};
+    
     camera.target = {player.position.x, player.position.y};
     camera.offset = {400,300};
     camera.zoom = 2.0f;
@@ -39,6 +39,7 @@ int main(){
         if (IsKeyReleased(KEY_ONE)) botMode = 0;
         if (IsKeyReleased(KEY_TWO)) botMode = 1;
         if (IsKeyReleased(KEY_THREE)) botMode = 2;
+        if (IsKeyReleased(KEY_FOUR)) botMode = 3;
 
         camera.target = {player.position.x, player.position.y};
 
@@ -52,7 +53,6 @@ int main(){
         } else if (botMode == 2){
             bot.Mimic(player.prevposition.x-player.position.x,player.prevposition.y-player.position.y);
             botText = "Mimic User";
-        }
 
 
         //start drawing to the screen

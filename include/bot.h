@@ -4,8 +4,8 @@
 
 class Bot{
 private:
-    Vector2 DetectSector();
-    bool CheckIfSectorIsInvalid();
+    Vector2 DetectSector(float x, float y);
+    bool CheckIfSectorIsInvalid(float x, float y);
 
     Vector2 world_tiles_quantity;
     std::vector<std::vector<int>> invalid_sectors;

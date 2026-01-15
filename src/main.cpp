@@ -53,6 +53,7 @@ int main(){
         } else if (botMode == 2){
             bot.Mimic(player.prevposition.x-player.position.x,player.prevposition.y-player.position.y);
             botText = "Mimic User";
+        }
 
 
         //start drawing to the screen

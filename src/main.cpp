@@ -1,12 +1,17 @@
 #include <vector>
+#include <string>
 #include "raylib.h"
 #include "player.h"
 #include "bot.h"
 #include "global.h"
 
+int botMode = 0;
+std::string botText = "Simple Follow";
+
 std::vector<std::vector<int>> invalid_sectors  = {
     {1,1},
-    {2,3}
+    {2,3},
+    {4,4}
 };
 
 int main(){
@@ -30,10 +35,25 @@ int main(){
         if (IsKeyDown(KEY_W) && player.position.y > 0) player.Move(0,-player.speed);
         if (IsKeyDown(KEY_S) && player.position.y+10 < world_size.y) player.Move(0,player.speed);
 
+        //bot mode switcher
+        if (IsKeyReleased(KEY_ONE)) botMode = 0;
+        if (IsKeyReleased(KEY_TWO)) botMode = 1;
+        if (IsKeyReleased(KEY_THREE)) botMode = 2;
+
         camera.target = {player.position.x, player.position.y};
 
         //bot behaviour
-        bot.Mimic(player.prevposition.x-player.position.x,player.prevposition.y-player.position.y);
+        if (botMode == 0){
+            bot.SimpleFollow(player.position.x,player.position.y,1.0f);
+            botText = "Simple Follow";
+        } else if (botMode == 1){
+            bot.FollowAvoidBadSectors(player.position.x,player.position.y,1.0f);
+            botText = "Advanced Follow";
+        } else if (botMode == 2){
+            bot.Mimic(player.prevposition.x-player.position.x,player.prevposition.y-player.position.y);
+            botText = "Mimic User";
+        }
+
 
         //start drawing to the screen
         BeginDrawing();
@@ -71,6 +91,8 @@ int main(){
 
         EndMode2D();
         //UI GETS PUT HERE
+        DrawText(botText.c_str(),20,20,20,BLACK);
+
 
         EndDrawing();
         //No more drawing

@@ -57,6 +57,10 @@ void Bot::SimpleFollow(float goalX, float goalY, float speed){
 
 void Bot::Mimic(float movmentX, float movmentY){
     position = {position.x-movmentX, position.y-movmentY};
+    if (position.x > world_size.x) position.x+= movmentX;
+    if (position.y > world_size.y) position.y+= movmentY;
+    if (position.x < 0)position.x += movmentX;
+    if (position.y < 0)position.y += movmentY;
 }
 
 void Bot::FollowAvoidBadSectors(float goalX, float goalY, float speed){

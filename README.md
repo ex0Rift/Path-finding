@@ -12,3 +12,12 @@ Currently there isnt much (just started it) and is only a simple camera and worl
 
 gors towards the goal coordinates directly with no care for
 anything in its way
+
+
+### Advanced follow
+
+like simple follow, but avoids the bad sectors and trys to go around them
+
+### Mimic
+
+Mimics the targets actions
